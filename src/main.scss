@@ -16,7 +16,6 @@ body {
     flex-direction: column;
     margin: 0;
     min-height: 100vh;
-    overflow: hidden;
     color: $color2;
     background-color: $color5;
 }
@@ -32,6 +31,7 @@ p {
 .header {
     background-color: $color2;
     color: $color4;
+    border-bottom: 1px $color1 solid;
     .logo-container {
         display: flex;
         justify-content: start;
@@ -56,6 +56,7 @@ p {
 ////////////////////////
 
 .main {
+    position: relative;
     display: flex;
     flex: 1 0 auto;
 }
@@ -64,14 +65,34 @@ p {
     flex: 1 0 auto;
 }
 
+.content-information {
+    display: flex;
+    max-width: 500px;
+    width:100%;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 1em;
+    .content-header {
+        border-bottom: 1px $color4 solid;
+        .content-title {
+            margin: .1em 0;
+        }
+        .stats {
+            color: $color3;
+        }
+    }
+}
+
 ////////////////////////
-//       NAV-BAR      //
+//       NAVBAR       //
 ////////////////////////
 
 .nav {
     width: 80px;
     background-color: $color1;
     color: $color3;
+    z-index: 1;
     .nav-icon {
         display: flex;
         flex-direction: column;
@@ -80,7 +101,55 @@ p {
         gap: 0.5em;
         padding: 0.8em;
         height: 80px;
+        cursor: pointer;
     }
+    .nav-icon.active {
+        transition: color 0.5s;
+        color: $color5;
+    }
+}
+
+////////////////////////
+//       SIDEBAR      //
+////////////////////////
+
+.sidebar {
+    position: absolute;
+    visibility: hidden;
+    width: 200px;
+    height: 100%;
+    background-color: $color2;
+    color: $color5;
+    padding: 1em;
+    .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        h4 {
+            margin: 0;
+            overflow-x: auto;
+        }
+    }
+    .sidebar-item:hover {
+        cursor: pointer;
+    }
+    .icons-set i {
+        display: none;
+    }
+    .icons-set i.in-use {
+        display: inline-block;
+        font-size: 1.3em;
+    }
+}
+
+.sidebar.active {
+    visibility: visible;
+    animation: show-sidebar .5s forwards;
+}
+
+@keyframes show-sidebar {
+    from {opacity: 0;}
+    to {opacity: 1; transform: translateX(80px)}
 }
 
 ////////////////////////
@@ -95,6 +164,7 @@ p {
     gap: 0.2em;
     background-color: $color2;
     color: $color4;
+    border-top: 1px $color1 solid;
     .link, a {
         color: $color3;
     }
