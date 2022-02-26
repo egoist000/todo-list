@@ -107,6 +107,9 @@ p {
         transition: color 0.5s;
         color: $color5;
     }
+    p {
+        user-select: none;
+    }
 }
 
 ////////////////////////
@@ -125,6 +128,7 @@ p {
     color: $color5;
     .sidebar-items {
         padding: .8em;
+        overflow-y: auto;
     }
     .item {
         display: flex;
@@ -135,7 +139,12 @@ p {
         h4 {
             margin: 0;
             overflow-x: auto;
-            scrollbar-color: $color3;
+        }
+        input {
+            width: 100%;
+            font-size: 1em;
+            border: none;
+            display: none;
         }
     }
     .item.selected {
@@ -143,6 +152,15 @@ p {
     }
     .item:hover {
         cursor: pointer;
+    }
+}
+
+.item.editable {
+    h4 {
+        display: none;
+    }
+    input {
+        display: inline-block;
     }
 }
 
@@ -162,18 +180,19 @@ p {
 
 .sidebar-actions {
    display: flex;
-   justify-content: flex-start;
-   gap: 1em;
-   padding: .6em .3em .6em;
+   justify-content: space-between;
+   padding: .6em .5em .6em;
    border-top: 3px $color3 solid;
    .action {
        font-size: 1.1em;
        color: $color3;
-   }
-   .action:hover {
+       margin: 0 .3em;
+    }
+    .action:hover {
        color: $color5;
        cursor: pointer;
-   }
+    }
+    
 }
 
 ////////////////////////

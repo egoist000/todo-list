@@ -17,49 +17,56 @@
         <header class="header">
             <div class="logo-container">
                 <div class="logo">
-                    <img src="./imgs/logo.png" alt="checkmark-logo" class="logo-img"/>
+                    <img src="./images/logo.png" alt="checkmark-logo" class="logo-img"/>
                     <h1 class="logo-text">Todo list</h1>
                 </div>
             </div>
         </header>
         <div class="main">
-            <nav class="nav">
-                <div class="nav-icon">
+            <nav class="nav" id="nav">
+                <div class="nav-icon expand" data-section="account">
                     <i class="fa-solid fa-circle-user fa-2x"></i>
                     <p>Account</p>
                 </div>
-                <div class="nav-icon">
+                <div class="nav-icon" data-section="inbox">
                     <i class="fas fa-inbox fa-2x"></i>
                     <p>Inbox</p>
                 </div>
-                <div class="nav-icon">
+                <div class="nav-icon" data-section="today">
                     <i class="fas fa-calendar-day fa-2x"></i>
                     <p>Today</p>
                 </div>
-                <div class="nav-icon">
+                <div class="nav-icon" data-section="week">
                     <i class="fas fa-calendar-week fa-2x"></i>
                     <p>Week</p>
                 </div>
-                <div class="nav-icon active">
+                <div class="nav-icon expand" data-section="projects">
                     <i class="fas fa-project-diagram fa-2x"></i>
                     <p>Projects</p>
                 </div>
-                <div class="nav-icon">
+                <div class="nav-icon expand" data-section="tags">
                     <i class="fas fa-tags fa-2x"></i>
                     <p>Tags</p>
                 </div>
             </nav>
-            <div class="sidebar">
+            <div class="sidebar" id="sidebar">
                 <div class="sidebar-items">
                     <div class="item">
-                        <i class="fas fa-coffee"></i>
+                        <i class="fa-solid fa-fw fa-mug-saucer"></i>
                         <h4 class="item-name">Hello, World!</h4>
+                        <input type="text" class="item-input" minlength="1" maxlength="32" placeholder="An awesome project">
                     </div>
                 </div>
                 <div class="sidebar-actions">
-                    <i class="fa-solid fa-plus action" data-action="add"></i>
-                    <i class="fa-solid fa-wrench action" data-action="modify"></i>
-                    <i class="fa-solid fa-trash action" data-action="delete"></i>
+                    <div class="main-actions">
+                        <i class="fa-solid fa-plus action" id="action-add"></i>
+                        <i class="fa-solid fa-wrench action" id="action-modify"></i>
+                        <i class="fa-solid fa-trash action" id="action-delete"></i>
+                    </div>
+                    <div class="edit-actions">
+                        <i class="fa-solid fa-floppy-disk action" id="action-save"></i>
+                        <i class="fa-solid fa-xmark action" id="action-cancel"></i>
+                    </div>
                 </div>
             </div>
             <div class="content">

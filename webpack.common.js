@@ -2,10 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'main.[contenthash].js',
     assetModuleFilename: './[name][ext]',
+    // eslint-disable-next-line no-undef
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -26,6 +27,16 @@ module.exports = {
         }
       },
       {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
         test: /\.(ico)$/i,
         type: 'asset',
         generator: {
@@ -33,5 +44,8 @@ module.exports = {
         }
       },
     ],
+  },
+  resolve: {
+    extensions: [".ts", "..."], //resolve .ts files and default extensions (.js, .wasm, .json)
   },
 };
