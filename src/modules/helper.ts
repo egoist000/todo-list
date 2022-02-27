@@ -23,10 +23,10 @@ export function getCurrentActive() {
  * @returns the icon element
  */
 
-export function createIcon(name = "code-commit", fixedWidth = true) {
+export function createIcon(name, fixedWidth = true) {
     const icon = document.createElement("i");
-    icon.classList.add("fa-solid", `fa-${name}`);
     if(fixedWidth) { icon.classList.add("fa-fw"); }
+    icon.classList.add("fa-solid", name);
     return icon;
 }
 /**

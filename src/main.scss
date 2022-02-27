@@ -126,6 +126,7 @@ p {
     height: 100%;
     background-color: $color2;
     color: $color5;
+    user-select: none;
     .sidebar-items {
         padding: .8em;
         overflow-y: auto;
@@ -136,6 +137,7 @@ p {
         gap: .5em;
         padding: .5em;
         margin-bottom: .5em;
+        border-radius: .4em;
         h4 {
             margin: 0;
             overflow-x: auto;
@@ -167,6 +169,12 @@ p {
 .sidebar.active {
     visibility: visible;
     animation: show-sidebar .5s forwards;
+    .edit-actions {
+        visibility: hidden;
+    }
+    .edit-actions.active{
+        visibility: visible;
+    }
 }
 
 @keyframes show-sidebar {
@@ -192,7 +200,11 @@ p {
        color: $color5;
        cursor: pointer;
     }
-    
+    .edit-actions {
+        i {
+            margin: 0 .4em;
+        }
+    }
 }
 
 ////////////////////////
@@ -203,7 +215,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.8em;
+    padding: 0.5em;
     gap: 0.2em;
     background-color: $color2;
     color: $color4;
