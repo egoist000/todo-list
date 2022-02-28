@@ -1,17 +1,15 @@
 export default class Task {
-    
-    #name: string;
-    
+    #name: string
+
     constructor(name: string) {
         this.#name = name
     }
-    
-    public get name() : string {
-        return this.#name;
+
+    public get name(): string {
+        return this.#name
     }
 
-    public set name(v : string) {
-        this.#name = v;
+    public set name(v: string) {
+        this.#name = v
     }
-
 }

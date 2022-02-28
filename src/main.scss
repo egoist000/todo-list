@@ -1,8 +1,8 @@
-$color1: #05080D;
-$color2: #141A26;
+$color1: #05080d;
+$color2: #141a26;
 $color3: #516073;
-$color4: #A8B5BF;
-$color5: #F2F2F2;
+$color4: #a8b5bf;
+$color5: #f2f2f2;
 
 $main-font-family: 'Lato', sans-serif;
 
@@ -68,7 +68,7 @@ p {
 .content-information {
     display: flex;
     max-width: 500px;
-    width:100%;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
@@ -76,7 +76,7 @@ p {
     .content-header {
         border-bottom: 1px $color4 solid;
         .content-title {
-            margin: .1em 0;
+            margin: 0.1em 0;
         }
         .stats {
             color: $color3;
@@ -128,16 +128,16 @@ p {
     color: $color5;
     user-select: none;
     .sidebar-items {
-        padding: .8em;
+        padding: 0.8em;
         overflow-y: auto;
     }
     .item {
         display: flex;
         align-items: center;
-        gap: .5em;
-        padding: .5em;
-        margin-bottom: .5em;
-        border-radius: .4em;
+        gap: 0.5em;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+        border-radius: 0.4em;
         h4 {
             margin: 0;
             overflow-x: auto;
@@ -168,18 +168,23 @@ p {
 
 .sidebar.active {
     visibility: visible;
-    animation: show-sidebar .5s forwards;
+    animation: show-sidebar 0.5s forwards;
     .edit-actions {
         visibility: hidden;
     }
-    .edit-actions.active{
+    .edit-actions.active {
         visibility: visible;
     }
 }
 
 @keyframes show-sidebar {
-    from {opacity: 0;}
-    to {opacity: 1; transform: translateX(80px)}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateX(80px);
+    }
 }
 
 ////////////////////////
@@ -187,22 +192,22 @@ p {
 ////////////////////////
 
 .sidebar-actions {
-   display: flex;
-   justify-content: space-between;
-   padding: .6em .5em .6em;
-   border-top: 3px $color3 solid;
-   .action {
-       font-size: 1.1em;
-       color: $color3;
-       margin: 0 .3em;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 0.5em 0.6em;
+    border-top: 3px $color3 solid;
+    .action {
+        font-size: 1.1em;
+        color: $color3;
+        margin: 0 0.3em;
     }
     .action:hover {
-       color: $color5;
-       cursor: pointer;
+        color: $color5;
+        cursor: pointer;
     }
     .edit-actions {
         i {
-            margin: 0 .4em;
+            margin: 0 0.4em;
         }
     }
 }
@@ -220,7 +225,8 @@ p {
     background-color: $color2;
     color: $color4;
     border-top: 1px $color1 solid;
-    .link, a {
+    .link,
+    a {
         color: $color3;
     }
     a {
