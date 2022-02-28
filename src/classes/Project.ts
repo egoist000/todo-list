@@ -7,6 +7,9 @@ export default class Project {
     #tasks: Task[];
 
     constructor(name: string, iconName: string, tasks: Task[] = []) {
+        console.log(name);
+        console.log(iconName);
+        console.log(tasks);
         this.#name = name;
         this.#iconName = iconName;
         this.#tasks = tasks;

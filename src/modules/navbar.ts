@@ -5,7 +5,7 @@ function removeActiveNavIcon() {
     if(currentActive != null) { currentActive.classList.remove("active"); }
 }
 
-function handleNavIconClick(e) {
+function handleNavIconClick(e:Event & {currentTarget: HTMLButtonElement}) {
     const currentTarget = e.currentTarget;
     if(currentTarget.classList.contains("nav-icon")) {
         if(currentTarget !== getCurrentActive()) { removeActiveNavIcon(); }
@@ -22,7 +22,7 @@ function handleNavIconClick(e) {
     }
 }
 
-function handleClickOutside(e) {
+function handleClickOutside(e: Event & {target: HTMLButtonElement}) {
     const sidebar = document.getElementById("sidebar");
     const nav = document.getElementById("nav");
     if(!(sidebar.contains(e.target) || nav.contains(e.target))) {

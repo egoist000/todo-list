@@ -1,3 +1,4 @@
+import Project from "../classes/Project";
 import { getCurrentSection, createIcon, createHeader, createInputField } from "./helper";
 
 const ICONS_SET = ["fa-crow", "fa-cat", "fa-bug", "fa-gear", "fa-martini-glass-citrus", 
@@ -13,12 +14,14 @@ function selectRandomIcon() {
     return ICONS_SET[rndIndex];
 }
 
-function changeIcon(e) {
-    const name = e.target.classList[2];
-    e.target.classList.remove(name);
-    const currentIndex = ICONS_SET.indexOf(name);
-    currentIndex >= ICONS_SET.length - 1 ? e.target.classList.add(ICONS_SET[0]) :
-        e.target.classList.add(ICONS_SET[currentIndex + 1]);
+function changeIcon(e: Event & {target: HTMLButtonElement}) {
+    if(e.target.parentElement.classList.contains("editable")) {
+        const name = e.target.classList[2];
+        e.target.classList.remove(name);
+        const currentIndex = ICONS_SET.indexOf(name);
+        currentIndex >= ICONS_SET.length - 1 ? e.target.classList.add(ICONS_SET[0]) :
+            e.target.classList.add(ICONS_SET[currentIndex + 1]);
+    }
 }
 
 function createNewProject() {
@@ -59,7 +62,7 @@ function handleAddAction() {
 }
 
 /* handle a generic action button click */
-function handleAction(e) {
+function handleAction(e: Event & {target: HTMLButtonElement}) {
     if(!inEditMode) {
         switch(e.target.id) {
             case "action-add":
@@ -80,21 +83,34 @@ function getSelectedItem() {
     return document.querySelector(".item.selected");
 }
 
-function selectSidebarItem(e) {
+function selectSidebarItem(e: Event & {currentTarget: HTMLButtonElement}) {
     const currSelectedItem = getSelectedItem();
     if(currSelectedItem !== e.currentTarget && currSelectedItem !== null) {
         currSelectedItem.classList.remove("selected");
     }
-    e.currentTarget.classList.toggle("selected");
+    if(!e.currentTarget.classList.contains("editable")) { //An item in edit mode is not selectable
+        e.currentTarget.classList.toggle("selected");
+    }
 }
 
 function saveCurrentEdit() {
     console.log("save edit..");
     const currentEditedItem = document.querySelector(".item.editable");
-    const itemInputField = currentEditedItem.querySelector(".item-input");
-    const itemIcon = currentEditedItem.querySelector("i");
-    console.log(itemInputField);
-    console.log(itemIcon);
+    const itemInputField = (currentEditedItem.querySelector(".item-input") as HTMLInputElement).value;
+    const itemIcon = currentEditedItem.querySelector("i").classList[2];
+    if(getCurrentSection() == "projects") { //save a new project
+        const newProject = new Project(itemInputField, itemIcon);
+        console.log(newProject.name);
+        currentEditedItem.querySelector("h4").textContent = itemInputField;
+        currentEditedItem.classList.remove("editable");
+        currentEditedItem.querySelector("i").removeEventListener("click", changeIcon);
+        currentEditedItem.addEventListener("click", selectSidebarItem);
+        toggleEditActions();
+        //TODO: save project in localStorage
+    }
+    else if(getCurrentSection() == "tags") { //save a new tag
+
+    }
 }
 
 function cancelCurrentEdit() {

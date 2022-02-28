@@ -23,7 +23,7 @@ export function getCurrentActive() {
  * @returns the icon element
  */
 
-export function createIcon(name, fixedWidth = true) {
+export function createIcon(name: string, fixedWidth = true) {
     const icon = document.createElement("i");
     if(fixedWidth) { icon.classList.add("fa-fw"); }
     icon.classList.add("fa-solid", name);
@@ -36,7 +36,7 @@ export function createIcon(name, fixedWidth = true) {
  * @returns header element with the specified text and size
  */
 
-export function createHeader(text, level = 4) {
+export function createHeader(text: string, level = 4) {
     const header = document.createElement(`h${level}`);
     header.textContent = text;
     return header;
