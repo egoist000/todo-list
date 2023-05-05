@@ -45,10 +45,10 @@ export function createHeader(text: string, level = 4) {
 }
 
 export function createInputField(
+    placeholder = 'An awesome project',
     type = 'text',
     minLen = 1,
-    maxLen = 32,
-    placeholder = 'An awesome project'
+    maxLen = 32
 ) {
     const input = document.createElement('input')
     input.type = type

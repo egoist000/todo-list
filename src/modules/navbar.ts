@@ -1,4 +1,5 @@
 import { getCurrentActive } from './helper'
+import { populateSidebar } from './sidebar'
 
 function removeActiveNavIcon() {
     const currentActive = getCurrentActive()
@@ -16,12 +17,12 @@ function handleNavIconClick(e: Event & { currentTarget: HTMLButtonElement }) {
         currentTarget.classList.toggle('active')
         const sidebar = document.getElementById('sidebar')
         if (
+            //nav-icon contains an expandable sidebar?
             currentTarget.classList.contains('active') &&
             currentTarget.classList.contains('expand')
         ) {
             sidebar.classList.add('active') //expand sidebar
-
-            //TODO: change sidebar contents based on nav section
+            populateSidebar(currentTarget.dataset.section)
         } else {
             sidebar.classList.remove('active')
         }

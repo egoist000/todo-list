@@ -1,15 +1,11 @@
+/**
+ * Class representing a Task
+ */
+
 export default class Task {
-    #name: string
+    protected name: string
 
     constructor(name: string) {
-        this.#name = name
-    }
-
-    public get name(): string {
-        return this.#name
-    }
-
-    public set name(v: string) {
-        this.#name = v
+        this.name = name
     }
 }

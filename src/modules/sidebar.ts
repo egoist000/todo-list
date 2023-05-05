@@ -1,10 +1,12 @@
 import Project from '../classes/Project'
+import { getUser, saveUser } from './App'
 import {
     getCurrentSection,
     createIcon,
     createHeader,
     createInputField,
 } from './helper'
+import { createProjectSidebarItem } from './UI'
 
 const ICONS_SET = [
     'fa-crow',
@@ -22,6 +24,34 @@ const editActions = document.querySelector('.edit-actions')
 
 let inEditMode = false
 
+function saveProject(project: Element, userLoggedIn = false) {
+    const itemInputField = (
+        project.querySelector('.item-input') as HTMLInputElement
+    ).value
+    const itemIcon = project.querySelector('i').classList[2]
+    //save a new project
+    const newProject = new Project(itemInputField, itemIcon)
+    project.querySelector('h4').textContent = itemInputField
+    project.classList.remove('editable')
+    project.querySelector('i').removeEventListener('click', changeIcon)
+    project.addEventListener('click', selectSidebarItem)
+    if (userLoggedIn) {
+        //TODO: save to the cloud
+    } else {
+        //TODO: save to localStorage
+        getUser().getProjects().push(newProject)
+        saveUser()
+        console.log(getUser().getProjects())
+    }
+}
+
+function unselectItem() {
+    const selected = sidebarItems.querySelector('.item.selected')
+    if (selected != null) {
+        selected.classList.remove('selected')
+    }
+}
+
 function selectRandomIcon() {
     const rndIndex = Math.floor(Math.random() * ICONS_SET.length)
     return ICONS_SET[rndIndex]
@@ -38,7 +68,7 @@ function changeIcon(e: Event & { target: HTMLButtonElement }) {
     }
 }
 
-function createNewProject() {
+function editNewProject() {
     const projectContainer = document.createElement('div')
     projectContainer.classList.add('item', 'editable')
     const projectIcon = createIcon(selectRandomIcon())
@@ -51,13 +81,14 @@ function createNewProject() {
     input.focus()
 }
 
-function createNewTag() {
+function editTags() {
     //TODO
     return
 }
 
 function toggleEditActions() {
     editActions.classList.toggle('active')
+    unselectItem()
     inEditMode = !inEditMode
 }
 
@@ -65,10 +96,10 @@ function handleAddAction() {
     const section = getCurrentSection()
     switch (section) {
         case 'projects':
-            createNewProject()
+            editNewProject()
             break
         case 'tags':
-            createNewTag()
+            editTags()
             break
         default:
             break
@@ -111,25 +142,12 @@ function selectSidebarItem(e: Event & { currentTarget: HTMLButtonElement }) {
 function saveCurrentEdit() {
     console.log('save edit..')
     const currentEditedItem = document.querySelector('.item.editable')
-    const itemInputField = (
-        currentEditedItem.querySelector('.item-input') as HTMLInputElement
-    ).value
-    const itemIcon = currentEditedItem.querySelector('i').classList[2]
     if (getCurrentSection() == 'projects') {
-        //save a new project
-        const newProject = new Project(itemInputField, itemIcon)
-        console.log(newProject.name)
-        currentEditedItem.querySelector('h4').textContent = itemInputField
-        currentEditedItem.classList.remove('editable')
-        currentEditedItem
-            .querySelector('i')
-            .removeEventListener('click', changeIcon)
-        currentEditedItem.addEventListener('click', selectSidebarItem)
-        toggleEditActions()
-        //TODO: save project in localStorage
+        saveProject(currentEditedItem)
     } else if (getCurrentSection() == 'tags') {
         //save a new tag
     }
+    toggleEditActions()
 }
 
 function cancelCurrentEdit() {
@@ -137,6 +155,37 @@ function cancelCurrentEdit() {
     const currentEditedItem = document.querySelector('.item.editable')
     currentEditedItem.parentNode.removeChild(currentEditedItem)
     toggleEditActions()
+}
+
+function populateWithProjects() {
+    sidebarItems.innerHTML = ''
+    const projects = getUser().getProjects()
+    console.log(projects)
+    projects.forEach((project) => {
+        const item = createProjectSidebarItem(
+            project.getName(),
+            project.getIconName()
+        )
+        item.addEventListener('click', selectSidebarItem)
+        sidebarItems.prepend(item)
+    })
+}
+
+export function populateSidebar(section: string) {
+    switch (section) {
+        case 'projects':
+            //populate sidebar with user projects
+            console.log('populating sidebar with projects')
+            populateWithProjects()
+            break
+        case 'tags':
+            console.log('populating sidebar with project tags')
+            break
+        default:
+            // Account sidebar information
+            console.log('user info')
+            break
+    }
 }
 
 export default function initSidebar() {

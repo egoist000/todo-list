@@ -1,37 +1,41 @@
 import Project from './Project'
 
+/**
+ * Class representing a User in the web app
+ */
+
 export default class User {
-    #username: string
-    #avatar: string
-    #projects: Project[]
+    protected username: string
+    protected avatar: string
+    protected projects: Project[]
 
-    constructor(username: string, avatar: string, projects: Project[]) {
-        this.#username = username
-        this.#avatar = avatar
-        this.#projects = projects
+    constructor(username = 'user', avatar = '', projects: Project[] = []) {
+        this.username = username
+        this.avatar = avatar
+        this.projects = projects
     }
 
-    public get username(): string {
-        return this.#username
+    public getUsername(): string {
+        return this.username
     }
 
-    public set username(v: string) {
+    public setUsername(v: string) {
         this.username = v
     }
 
-    public get value(): string {
-        return this.#avatar
+    public getValue(): string {
+        return this.avatar
     }
 
-    public set avatar(v: string) {
+    public setAvatar(v: string) {
         this.avatar = v
     }
 
-    public get projects(): Project[] {
-        return this.#projects
+    public getProjects(): Project[] {
+        return this.projects
     }
 
-    public set projects(v: Project[]) {
+    public setProjects(v: Project[]) {
         this.projects = v
     }
 }
